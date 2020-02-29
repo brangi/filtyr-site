@@ -39,12 +39,12 @@ class Pricing1 extends Component {
   ];
 
   offerList = [
-    "10GB of Bandwidth",
-    "Max 50 connection",
-    "512MB RAM",
-    "Unlimited access",
-    "Unlimited User",
-    "Data analytics"
+    "euismod concludaturque te",
+    "euismod concludaturque te",
+    "euismod concludaturque te",
+    "euismod concludaturque te",
+    "euismod concludaturque te",
+    "euismod concludaturque te"
   ];
 
   state = {

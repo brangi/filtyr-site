@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { debounce, classList } from "../../Utils";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-// import { NavLink } from "react-router-dom";
 import ScrollTo from "../common/ScrollTo";
 
 class TopBar extends Component {
@@ -50,43 +49,55 @@ class TopBar extends Component {
           closed: this.state.isClosed
         })}
       >
-        <div className="container header-container">
-          <div className="brand">
-            <img src="./assets/images/logo-full.png" alt="" />
-          </div>
-          <ul className="navigation">
-            {/*<li>
+        { this.props.mode && this.props.mode === 'test' ?
+          (
+            <div className="container header-container">
+              <div className="m-auto" />
+              <ul className="navigation">
+                <li>
+                  Demo
+                </li>
+              </ul>
+            </div>
+          )  :
+          (
+            <div className="container header-container">
+              <div className="brand">
+                <img src="./assets/images/logo-full.png" alt="" />
+              </div>
+              <ul className="navigation">
+                {/*<li>
               <NavLink to="/">Demos</NavLink>
             </li>*/}
-            <li>
-              <ScrollTo to="intro1" onScroll={this.close}>
-                Home
-              </ScrollTo>
-            </li>
-            <li>
-              <ScrollTo to="portfolio1" onScroll={this.close}>
-                Cases
-              </ScrollTo>
-            </li>
-            <li>
-              <ScrollTo to="service1" onScroll={this.close}>
-                Features
-              </ScrollTo>
-            </li>
-            
-            <li>
-              <ScrollTo to="pricing1" onScroll={this.close}>
-                Pricing
-              </ScrollTo>
-            </li>
-            <li>
-              <ScrollTo to="contact1" onScroll={this.close}>
-                Contact
-              </ScrollTo>
-            </li>
-          </ul>
-          <div className="m-auto" />
-          {/*
+                <li>
+                  <ScrollTo to="intro1" onScroll={this.close}>
+                    Home
+                  </ScrollTo>
+                </li>
+                <li>
+                  <ScrollTo to="portfolio1" onScroll={this.close}>
+                    Cases
+                  </ScrollTo>
+                </li>
+                <li>
+                  <ScrollTo to="service1" onScroll={this.close}>
+                    Features
+                  </ScrollTo>
+                </li>
+
+                <li>
+                  <ScrollTo to="pricing1" onScroll={this.close}>
+                    Pricing
+                  </ScrollTo>
+                </li>
+                <li>
+                  <ScrollTo to="contact1" onScroll={this.close}>
+                    Contact
+                  </ScrollTo>
+                </li>
+              </ul>
+              <div className="m-auto" />
+              {/*
            <ul className="navigation">
             <li>
               <a href="/dashboard">
@@ -95,15 +106,17 @@ class TopBar extends Component {
             </li>
           </ul>
           */}
-          <IconButton
-            className="header__toggle"
-            onClick={() => {
-              this.setState({ isClosed: !this.state.isClosed });
-            }}
-          >
-            <Icon>{toggleIcon}</Icon>
-          </IconButton>
-        </div>
+              <IconButton
+                className="header__toggle"
+                onClick={() => {
+                  this.setState({ isClosed: !this.state.isClosed });
+                }}
+              >
+                <Icon>{toggleIcon}</Icon>
+              </IconButton>
+            </div>
+          )
+        }
       </section>
     );
   }

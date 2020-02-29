@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import Fab from "@material-ui/core/Fab";
+import { NavLink } from 'react-router-dom';
 
 class Intro1 extends Component {
   state = { };
@@ -56,10 +57,10 @@ class Intro1 extends Component {
             </Grid>
             <Grid item md={6} >
               <div className="section-intro1__product">
-                <a href="/" className="section-intro1__product__link" target="_blank" rel="noopener noreferrer">
+                <NavLink to="/" className="section-intro1__product__link">
                   <div className="price">Demo</div>
                   <span className="price__text">Coming soon...</span>
-                </a>
+                </NavLink>
                 {/*<img src="./assets/images/screenshots/landing-intro.png" alt=""/>*/}
               </div>
             </Grid>
