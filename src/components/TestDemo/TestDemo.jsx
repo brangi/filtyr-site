@@ -54,12 +54,11 @@ class TestDemo extends Component {
 
   handleAnswerSelected(event) {
     this.setUserAnswer(event.currentTarget.value);
-
-    if (this.state.questionId < questions.length) {
-      setTimeout(() => this.setNextQuestion(), 300);
-    } else {
-      setTimeout(() => this.setResults(this.getResults()), 300);
-    }
+    //if (this.state.questionId < questions.length) {
+    //  setTimeout(() => this.setNextQuestion(), 300);
+    //} else {
+    //  setTimeout(() => this.setResults(this.getResults()), 300);
+   //}
   }
 
   setUserAnswer(answer) {

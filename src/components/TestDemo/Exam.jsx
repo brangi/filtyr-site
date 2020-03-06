@@ -4,6 +4,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import Question from './Question';
 import QuestionCount from './QuestionCount';
 import AnswerOpt from './AnswerOpt';
+import Fab from '@material-ui/core/Fab';
 
 const Exam = props => {
   function renderAnswerOptions(key) {
@@ -39,6 +40,15 @@ const Exam = props => {
           </ul>
         </div>
       </CSSTransitionGroup>
+      <div className="next-button">
+      <Fab
+        variant="extended"
+        size="large"
+        aria-label="Download"
+        className="btn-action btn-white m-28">
+        Next
+      </Fab>
+      </div>
     </section>
   );
 };
@@ -54,21 +64,3 @@ Exam.propTypes = {
 
 export default Exam;
 
-/*
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-class Exam extends Component {
-  state = { };
-  render() {
-    return (
-      <section className="section section-intro1" id="intro1"
-               style={{background: 'url(./assets/images/home-bg.jpg) center center/cover no-repeat'}}>
-
-      </section>
-    );
-  }
-}
-
-export default Exam;
-
- */
