@@ -57,7 +57,7 @@ class Intro1 extends Component {
             </Grid>
             <Grid item md={6} >
               <div className="section-intro1__product">
-                <NavLink to="/" className="section-intro1__product__link">
+                <NavLink to="/demo" className="section-intro1__product__link">
                   <div className="price">Demo</div>
                   <span className="price__text">Coming soon...</span>
                 </NavLink>

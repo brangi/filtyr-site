@@ -5,7 +5,8 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 
 import Home from "./components/Home";
 import Theme from "./Theme";
-import Exam from "./components/TestDemo/Exam";
+//import TestDemo from "./components/TestDemo/TestDemo";
+import TestDemo from "./components/TestDemo/TestDemo";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Router basename="/">
         <Switch>
           <Route path="/" component={Home} exact />
-          <Route path="/demo" component={Exam} exact />
+          <Route path="/demo" component={TestDemo} exact />
         </Switch>
       </Router>
     </MuiThemeProvider>
