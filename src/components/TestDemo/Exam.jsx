@@ -7,7 +7,7 @@ import AnswerOpt from './AnswerOpt';
 import Fab from '@material-ui/core/Fab';
 
 const Exam = props => {
-  function renderAnswerOptions(key) {
+  const renderAnswerOptions = (key) => {
     return (
       <AnswerOpt
         key={key.content}
@@ -16,9 +16,10 @@ const Exam = props => {
         answer={props.answer}
         questionId={props.questionId}
         onAnswerSelected={props.onAnswerSelected}
+        onNext={props.onNext}
       />
     );
-  }
+  };
 
   return (
     <section className="section section-intro1" id="intro1"
@@ -45,6 +46,7 @@ const Exam = props => {
         variant="extended"
         size="large"
         aria-label="Download"
+        onClick={() => props.onNext()}
         className="btn-action btn-white m-28">
         Next
       </Fab>
@@ -59,7 +61,8 @@ Exam.propTypes = {
   question: PropTypes.string.isRequired,
   questionId: PropTypes.number.isRequired,
   questionTotal: PropTypes.number.isRequired,
-  onAnswerSelected: PropTypes.func.isRequired
+  onAnswerSelected: PropTypes.func.isRequired,
+  onNext: PropTypes.func.isRequired
 };
 
 export default Exam;

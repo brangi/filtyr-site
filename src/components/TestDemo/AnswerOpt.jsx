@@ -18,7 +18,7 @@ const AnswerOpt = (props) => {
       </label>
     </li>
   );
-}
+};
 
 AnswerOpt.propTypes = {
   answerType: PropTypes.string.isRequired,

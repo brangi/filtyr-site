@@ -20,6 +20,8 @@ class TestDemo extends Component {
     };
 
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+    this.setNextQuestion = this.setNextQuestion.bind(this);
+
   }
 
   componentDidMount() {
@@ -54,11 +56,6 @@ class TestDemo extends Component {
 
   handleAnswerSelected(event) {
     this.setUserAnswer(event.currentTarget.value);
-    //if (this.state.questionId < questions.length) {
-    //  setTimeout(() => this.setNextQuestion(), 300);
-    //} else {
-    //  setTimeout(() => this.setResults(this.getResults()), 300);
-   //}
   }
 
   setUserAnswer(answer) {
@@ -72,16 +69,20 @@ class TestDemo extends Component {
   }
 
   setNextQuestion() {
-    const counter = this.state.counter + 1;
-    const questionId = this.state.questionId + 1;
-
-    this.setState({
-      counter: counter,
-      questionId: questionId,
-      question: questions[counter].question,
-      answerOptions: questions[counter].answers,
-      answer: ''
-    });
+    console.log(this.state.answer)
+    if (this.state.questionId < questions.length) {
+      const counter = this.state.counter + 1;
+      const questionId = this.state.questionId + 1;
+      this.setState({
+        counter: counter,
+        questionId: questionId,
+        question: questions[counter].question,
+        answerOptions: questions[counter].answers,
+        answer: ''
+      });
+    } else {
+      setTimeout(() => this.setResults(this.getResults()), 300);
+    }
   }
 
   getResults() {
@@ -114,6 +115,7 @@ class TestDemo extends Component {
         question={this.state.question}
         questionTotal={questions.length}
         onAnswerSelected={this.handleAnswerSelected}
+        onNext={this.setNextQuestion}
       />
     );
   }
