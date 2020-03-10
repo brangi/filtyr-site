@@ -37,6 +37,7 @@ const Exam = props => {
           <QuestionCount counter={props.questionId} total={props.questionTotal} />
           <Question content={props.question} />
           <ul className="answerOptions">
+            {console.log(props.answerOptions)}
             {props.answerOptions.map(renderAnswerOptions)}
           </ul>
         </div>

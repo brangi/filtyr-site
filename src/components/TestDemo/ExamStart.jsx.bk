@@ -1,0 +1,61 @@
+import React from 'react';
+//import { scrollTo } from "../../Utils";
+//import Result from './Result';
+import TopBar from '../sections/TopBar1';
+import Exam from './Exam';
+import questions from './questions';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+//import questions from './questions';
+//import Exam from './Exam';
+//import {useQuery} from '@apollo/react-hooks';
+//import { gql } from 'apollo-boost'
+
+/*
+const shuffleArray =(array) => {
+  let currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
+
+ */
+
+const ExamStart = () => {
+  const renderExam =() => {
+    return (
+      <Exam
+        answer={this.state.answer}
+        answerOptions={this.state.answerOptions}
+        questionId={this.state.questionId}
+        question={this.state.question}
+        questionTotal={questions.length}
+        onAnswerSelected={this.handleAnswerSelected}
+        onNext={this.setNextQuestion}
+      />
+    );
+  };
+
+  return (
+    <div>
+      <div className="landing">
+        <TopBar mode={'test'} />
+      </div>
+    </div>
+  )
+};
+
+export default ExamStart

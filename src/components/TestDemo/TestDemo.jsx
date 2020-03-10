@@ -23,7 +23,6 @@ class TestDemo extends Component {
     this.setNextQuestion = this.setNextQuestion.bind(this);
 
   }
-
   componentDidMount() {
     const shuffledAnswerOptions = questions.map(question =>
       this.shuffleArray(question.answers)
