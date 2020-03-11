@@ -10,7 +10,6 @@ import TestDemo from "./components/TestDemo/TestDemo";
 import ExamInit from './components/TestDemo/ExamInit'
 const store = createStore(model);
 
-
 const ExamApp = () =>{
   return (
     <StoreProvider store={store}>
@@ -22,11 +21,10 @@ const ExamApp = () =>{
 const App =() =>{
   return (
     <MuiThemeProvider theme={Theme}>
-      {/* <Router basename="/react-landing"> */}
-      <Router basename="/">
+      <Router>
         <Switch>
-          <Route path="/" component={Home} exact />
-          <Route path="/demo" component={ExamApp} exact />
+          <Route exact path="/" component={Home}  />
+          <Route exact path="/demo" component={ExamApp}  />
         </Switch>
       </Router>
     </MuiThemeProvider>

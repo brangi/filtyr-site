@@ -37,20 +37,19 @@ const Exam = props => {
           <QuestionCount counter={props.questionId} total={props.questionTotal} />
           <Question content={props.question} />
           <ul className="answerOptions">
-            {console.log(props.answerOptions)}
             {props.answerOptions.map(renderAnswerOptions)}
           </ul>
         </div>
       </CSSTransitionGroup>
       <div className="next-button">
-      <Fab
-        variant="extended"
-        size="large"
-        aria-label="Download"
-        onClick={() => props.onNext()}
-        className="btn-action btn-white m-28">
-        Next
-      </Fab>
+        <Fab
+          variant="extended"
+          size="large"
+          aria-label="Download"
+          onClick={() => props.onNext()}
+          className="btn-action btn-white m-28">
+          Next
+        </Fab>
       </div>
     </section>
   );

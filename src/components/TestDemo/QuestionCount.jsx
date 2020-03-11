@@ -7,7 +7,7 @@ const QuestionCount = (props) => {
       Question <span>{props.counter}</span> of <span>{props.total}</span>
     </div>
   );
-}
+};
 
 QuestionCount.propTypes = {
   counter: PropTypes.number.isRequired,

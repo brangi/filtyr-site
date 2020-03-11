@@ -1,4 +1,4 @@
-import { action, createStore, useStoreActions } from 'easy-peasy';
+import { action } from 'easy-peasy';
 import questions from './questions';
 
 const shuffleArray = (array) =>{
@@ -29,7 +29,15 @@ const model = {
   answer: '',
   answersCount: {},
   result: '',
-  setAnswer: action((state, answer) => {
+  //For Exam
+  description: '',
+  questionTotal: 0,
+  setInitial: action((state, data) => {
+    state.description  = data.exam.description;
+    state.questionTotal  = data.exam.questions.length
+  }),
+  setAnswer: action((state, event) => {
+    const answer = event.currentTarget.value;
     state.answersCount = {
       ...state.answersCount,
       [answer]: (state.answersCount[answer] || 0) + 1
