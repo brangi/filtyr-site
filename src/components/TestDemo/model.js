@@ -29,13 +29,6 @@ const model = {
   answer: '',
   answersCount: {},
   result: '',
-  //For Exam
-  description: '',
-  questionTotal: 0,
-  setInitial: action((state, data) => {
-    state.description  = data.exam.description;
-    state.questionTotal  = data.exam.questions.length
-  }),
   setAnswer: action((state, event) => {
     const answer = event.currentTarget.value;
     state.answersCount = {
@@ -66,7 +59,24 @@ const model = {
     } else {
       state.result = 'Undetermined';
     }
-  })
+  }),
+  //For Exam
+  description: '',
+  questionTotal: 0,
+  currentQuestion: '',
+  currentAnswers: [],
+  prev: 0,
+  next: 0,
+  setInitial: action((state, data) => {
+    state.description  = data.exam.description;
+    state.questionTotal  = data.exam.questions.length
+  }),
+  setCurrentQuestion: action((state, data) => {
+    state.currentQuestion  = data.getQuestion.name;
+    state.currentAnswers  = data.getQuestion.answers;
+    state.prev  = data.getQuestion.prev;
+    state.next  = data.getQuestion.next;
+  }),
 };
 
 

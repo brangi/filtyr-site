@@ -1,17 +1,16 @@
 import React, { useEffect }  from 'react';
-import useForceUpdate from 'use-force-update';
+// import useForceUpdate from 'use-force-update';
 import {useQuery, useLazyQuery} from '@apollo/react-hooks';
-import { gql } from 'apollo-boost'
 import { useStoreState, useStoreActions } from 'easy-peasy';
 import Result from './Result';
 import Instruction from './Instruction';
 import TopBar from '../sections/TopBar1';
 import Exam from './Exam';
-import {QUERY_START} from './api/queries'
+import {QUERY_START, QUERY_QUESTION_EXAM} from './api/queries'
 const ExamInit = () => {
 
   //Force update helper
-  const forceUpdate = useForceUpdate();
+  //const forceUpdate = useForceUpdate();
   //State and store
   const state = useStoreState(state => state);
   const setAnswer = useStoreActions(actions => actions.setAnswer);
@@ -21,18 +20,29 @@ const ExamInit = () => {
 
   //For exam
   const setInitial = useStoreActions(actions => actions.setInitial);
+  const setCurrentQuestion = useStoreActions(actions => actions.setCurrentQuestion);
 
   //Initial query
-  const {data} = useQuery(QUERY_START);
+  const {data, loading:loadingStart} = useQuery(QUERY_START);
+  //Get question query
+  const [getQuestion, { data: dataQuestion, loading:loadingQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM);
 
   //Page questions
+  //console.log(dataQuestion);
+  //console.log(state);
 
-  console.log(state)
-  useEffect(() => {
+  useEffect(() => { // Deprecate eventually
     init();
   }, [init]);
 
+  //Update state with startData
+  if(!loadingStart) setInitial(data);
+  //Update state with current question
+  if(dataQuestion) setCurrentQuestion(dataQuestion);
+
+  console.log(state);
   const setNext = () => {
+    getQuestion({ variables: { number: state.next, total: state.questionTotal } });
     if (state.questionId < state.questions.length) {
       setNextQuestion()
     } else {
@@ -40,10 +50,10 @@ const ExamInit = () => {
     }
   };
 
-  const startExam = () => {
+  const startExam = async () => {
     localStorage.setItem('start-exam', true);
-    setInitial(data);
-    //forceUpdate(); // Should not probably do this but it's for demo
+    getQuestion({ variables: { number: 1, total: state.questionTotal } });
+    // forceUpdate(); // Should not probably do this but it's for demo
   };
 
   const getResults =() => {
@@ -69,15 +79,12 @@ const ExamInit = () => {
   };
 
   const renderResult =()=> {
-    localStorage.removeItem('start-exam');
+    localStorage.removeItem('start-exam'); //work around but could change
     return <Result quizResult={state.result} />;
   };
 
   const renderInstruction =()=> {
-    //Eventually should render description from api -> state.description
-    return <Instruction
-      initExam={startExam}
-      description={data.exam.description} />;
+    return <Instruction initExam={startExam} description={state.description} />;
   };
 
   return (
@@ -97,7 +104,7 @@ const ExamInit = () => {
             return renderResult()
           }
         }
-      })()}}
+      })()}
     </div>
   )
 };

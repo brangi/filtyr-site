@@ -13,4 +13,17 @@ export const QUERY_START = gql`
     }
   }`;
 
-export const queryQuestion = () => true;
+// getQuestion
+export const QUERY_QUESTION_EXAM = gql`
+  query Question($number: Int!, $total: Int!){
+    getQuestion(questionNum:$number, examId:"5e6495240b3777b5ff8ffa35", total: $total){
+      name
+      id
+      answers{
+        name
+        id
+      }
+      prev
+      next
+    }
+  }`;
