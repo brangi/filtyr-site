@@ -69,11 +69,7 @@ const model = {
     state.answerOptions  = shuffledAnswerOptions[0];
   }),
   setResults: action((state, result) => {
-    //if (result.length === 1) {
-    //  state.result = result[0];
-    //} else {
-      state.result = result;
-    //}
+    state.result = result;
   }),
   setInitial: action((state, data) => {
     state.description  = data.exam.description;

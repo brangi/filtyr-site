@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group';
 import Question from './Question';
 import QuestionCount from './QuestionCount';
 import Answer from './Answer';
@@ -20,19 +19,10 @@ const QuestionStep = props => {
       />
     );
   };
-
   return (
     <section className="section section-intro1" id="intro1"
              style={{background: 'url(./assets/images/home-bg.jpg) center center/cover no-repeat', color: 'black'}}>
-      <CSSTransitionGroup
-        className="container-test"
-        component="div"
-        transitionName="fade"
-        transitionEnterTimeout={800}
-        transitionLeaveTimeout={500}
-        transitionAppear
-        transitionAppearTimeout={500}
-      >
+      <div className="container-test">
         <div key={props.questionId} >
           <QuestionCount counter={props.questionNumber} total={props.questionTotal} />
           <Question content={props.question} />
@@ -40,7 +30,7 @@ const QuestionStep = props => {
             {props.answerOptions.map(renderAnswerOptions)}
           </ul>
         </div>
-      </CSSTransitionGroup>
+      </div>
       <div className="next-button">
         <Fab
           variant="extended"
