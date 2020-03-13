@@ -12,7 +12,7 @@ class Intro1 extends Component {
       style={{background: 'url(./assets/images/home-bg.jpg) center center/cover no-repeat'}}>
         <div className="container">
           <Grid container spacing={24} justify="center">
-            <Grid item md={6}>
+            <Grid item md={10}>
               <h1 className="section-intro1__title">
                 Filtyr - Entry level assessment tests made simple for employers and students.
               </h1>
@@ -36,32 +36,13 @@ class Intro1 extends Component {
                 <Fab
                   variant="extended"
                   size="large"
-                  color="primary"
-                  aria-label="Buy"
-                  className="btn-action m-8"
-                >
-                  <Icon className="mr-16">flight_takeoff</Icon>
-                  Hire
-                </Fab>
-
-                <Fab
-                  variant="extended"
-                  size="large"
                   aria-label="Download"
                   className="btn-action btn-white m-8"
                 >
-                  <Icon className="mr-16">alarm_on</Icon>
-                  Demo
+                  <NavLink to="/demo" className="section-intro1__product__link">
+                    <span className="price__text">Demo coming soon...</span>
+                  </NavLink>
                 </Fab>
-              </div>
-            </Grid>
-            <Grid item md={6} >
-              <div className="section-intro1__product">
-                <NavLink to="/demo" className="section-intro1__product__link">
-                  <div className="price">Demo</div>
-                  <span className="price__text">Coming soon...</span>
-                </NavLink>
-                {/*<img src="./assets/images/screenshots/landing-intro.png" alt=""/>*/}
               </div>
             </Grid>
           </Grid>

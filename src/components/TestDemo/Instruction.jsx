@@ -8,7 +8,7 @@ const Instruction = (props ) => {
     <section className="section section-intro1" id="intro1"
              style={{background: 'url(./assets/images/home-bg.jpg) center center/cover no-repeat'}}>
       <CSSTransitionGroup
-        className="container-test result"
+        className="container-test result scroll-description"
         component="div"
         transitionName="fade"
         transitionEnterTimeout={800}

@@ -152,3 +152,9 @@ body {
   height: 100px;
   margin: 0 auto;
 }
+
+.scroll-description
+{
+  max-height: 250px;
+  overflow-y: scroll;
+}
