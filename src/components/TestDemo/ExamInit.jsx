@@ -5,7 +5,9 @@ import { useStoreState, useStoreActions } from 'easy-peasy';
 import Result from './Result';
 import Instruction from './Instruction';
 import TopBar from '../sections/TopBar1';
-import Exam from './Exam';
+//import Exam from './Exam';
+import QuestionStep from './QuestionStep';
+
 import {QUERY_START, QUERY_QUESTION_EXAM} from './api/queries'
 const ExamInit = () => {
 
@@ -14,7 +16,6 @@ const ExamInit = () => {
   //State and store
   const state = useStoreState(state => state);
   const setAnswer = useStoreActions(actions => actions.setAnswer);
-  const setNextQuestion = useStoreActions(actions => actions.setNextQuestion);
   const setResults = useStoreActions(actions => actions.setResults);
   const init = useStoreActions(actions => actions.init);
 
@@ -25,7 +26,7 @@ const ExamInit = () => {
   //Initial query
   const {data, loading:loadingStart} = useQuery(QUERY_START);
   //Get question query
-  const [getQuestion, { data: dataQuestion, loading:loadingQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM);
+  const [getQuestion, { data: dataQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM);
 
   //Page questions
   //console.log(dataQuestion);
@@ -40,13 +41,12 @@ const ExamInit = () => {
   //Update state with current question
   if(dataQuestion) setCurrentQuestion(dataQuestion);
 
-  console.log(state);
+  //console.log(state);
   const setNext = () => {
-    getQuestion({ variables: { number: state.next, total: state.questionTotal } });
-    if (state.questionId < state.questions.length) {
-      setNextQuestion()
+    if (state.page < state.questionTotal) {
+      getQuestion({ variables: { number: state.next, total: state.questionTotal } });
     } else {
-      setTimeout(() => setResults(getResults()), 300);
+      setTimeout(() => setResults("Result coming..."), 300);
     }
   };
 
@@ -56,22 +56,15 @@ const ExamInit = () => {
     // forceUpdate(); // Should not probably do this but it's for demo
   };
 
-  const getResults =() => {
-    const answersCount = state.answersCount;
-    const answersCountKeys = Object.keys(answersCount);
-    const answersCountValues = answersCountKeys.map(key => answersCount[key]);
-    const maxAnswerCount = Math.max.apply(null, answersCountValues);
-    return answersCountKeys.filter(key => answersCount[key] === maxAnswerCount);
-  };
-
   const renderExam =()=> {
     return (
-      <Exam
-        answer={state.answer}
-        answerOptions={state.answerOptions}
-        questionId={state.questionId}
-        question={state.question}
-        questionTotal={state.questions.length}
+     <QuestionStep
+        answerOptions={state.currentAnswers}
+        answerSelected={state.answerSelected}
+        questionId={state.currentQuestionId}
+        question={state.currentQuestion}
+        questionTotal={state.questionTotal}
+        questionNumber={state.page}
         onAnswerSelected={setAnswer}
         onNext={setNext}
       />

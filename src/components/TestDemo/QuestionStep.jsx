@@ -3,25 +3,23 @@ import PropTypes from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group';
 import Question from './Question';
 import QuestionCount from './QuestionCount';
-import AnswerOpt from './AnswerOpt';
+import Answer from './Answer';
 import Fab from '@material-ui/core/Fab';
 
-const Exam = props => {
+const QuestionStep = props => {
   const renderAnswerOptions = (key) => {
     return (
-      <AnswerOpt
-        key={key.content}
-        answerContent={key.content}
-        answerType={key.type}
-        answer={props.answer}
+      <Answer
+        key={key.id}
+        answerType={key.type || undefined}
+        answer={key.name}
+        answerId={key.id}
+        answerSelected={props.answerSelected}
         questionId={props.questionId}
         onAnswerSelected={props.onAnswerSelected}
-        onNext={props.onNext}
       />
     );
   };
-
-  //console.log(props.stateExam);
 
   return (
     <section className="section section-intro1" id="intro1"
@@ -36,7 +34,7 @@ const Exam = props => {
         transitionAppearTimeout={500}
       >
         <div key={props.questionId} >
-          <QuestionCount counter={props.questionId} total={props.questionTotal} />
+          <QuestionCount counter={props.questionNumber} total={props.questionTotal} />
           <Question content={props.question} />
           <ul className="answerOptions">
             {props.answerOptions.map(renderAnswerOptions)}
@@ -57,16 +55,16 @@ const Exam = props => {
   );
 };
 
-Exam.propTypes = {
-  answer: PropTypes.string.isRequired,
+QuestionStep.propTypes = {
   answerOptions: PropTypes.array.isRequired,
   question: PropTypes.string.isRequired,
-  questionId: PropTypes.number.isRequired,
+  answerSelected: PropTypes.string,
+  questionId: PropTypes.string.isRequired,
   questionTotal: PropTypes.number.isRequired,
+  questionNumber: PropTypes.number.isRequired,
   onAnswerSelected: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
-  stateExam: PropTypes.object.isRequired
+  onNext: PropTypes.func.isRequired
 };
 
-export default Exam;
+export default QuestionStep;
 

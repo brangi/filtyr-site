@@ -8,12 +8,12 @@ const Answer = (props) => {
         type="radio"
         className="radioCustomButton"
         name="radioGroup"
-        checked={props.answer}
+        checked={props.answerId === props.answerSelected} //for now
         id={props.answerId}
-        value={props.answer}
+        value={props.answerId}
         onChange={props.onAnswerSelected}
       />
-      <label className="radioCustomLabel" htmlFor={props.answerType}>
+      <label className="radioCustomLabel" htmlFor={props.answerId}>
         {props.answer}
       </label>
     </li>
@@ -21,9 +21,11 @@ const Answer = (props) => {
 };
 
 Answer.propTypes = {
-  answerId: PropTypes.string.isRequired,
-  answerType: PropTypes.string.isRequired,
-  answer: PropTypes.string.isRequired,
+  questionId: PropTypes.string, // Just in case for now
+  answerId: PropTypes.string,
+  answerType: PropTypes.string,
+  answerSelected: PropTypes.string,
+  answer: PropTypes.string,
   onAnswerSelected: PropTypes.func.isRequired
 };
 

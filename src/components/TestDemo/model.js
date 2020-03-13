@@ -21,6 +21,8 @@ const shuffleArray = (array) =>{
 };
 
 const model = {
+
+  //Old
   questions,
   counter: 0,
   questionId: 1,
@@ -29,6 +31,18 @@ const model = {
   answer: '',
   answersCount: {},
   result: '',
+
+  //For Exam
+  description: '',
+  questionTotal: 0,
+  currentQuestion: '',
+  currentAnswers: [],
+  currentQuestionId: '',
+  answerSelected: '',
+  page: 0,
+  prev: 0,
+  next: 0,
+
   setAnswer: action((state, event) => {
     const answer = event.currentTarget.value;
     state.answersCount = {
@@ -36,6 +50,7 @@ const model = {
       [answer]: (state.answersCount[answer] || 0) + 1
     };
     state.answer = answer;
+    state.answerSelected = answer;
   }),
   setNextQuestion: action((state) => {
     const counter = state.counter + 1;
@@ -54,26 +69,21 @@ const model = {
     state.answerOptions  = shuffledAnswerOptions[0];
   }),
   setResults: action((state, result) => {
-    if (result.length === 1) {
-      state.result = result[0];
-    } else {
-      state.result = 'Undetermined';
-    }
+    //if (result.length === 1) {
+    //  state.result = result[0];
+    //} else {
+      state.result = result;
+    //}
   }),
-  //For Exam
-  description: '',
-  questionTotal: 0,
-  currentQuestion: '',
-  currentAnswers: [],
-  prev: 0,
-  next: 0,
   setInitial: action((state, data) => {
     state.description  = data.exam.description;
     state.questionTotal  = data.exam.questions.length
   }),
   setCurrentQuestion: action((state, data) => {
+    state.currentQuestionId  = data.getQuestion.id;
     state.currentQuestion  = data.getQuestion.name;
     state.currentAnswers  = data.getQuestion.answers;
+    state.page  = data.getQuestion.page;
     state.prev  = data.getQuestion.prev;
     state.next  = data.getQuestion.next;
   }),

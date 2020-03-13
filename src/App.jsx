@@ -6,7 +6,6 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import Home from "./components/Home";
 import Theme from "./Theme";
-import TestDemo from "./components/TestDemo/TestDemo";
 import ExamInit from './components/TestDemo/ExamInit'
 const store = createStore(model);
 
@@ -16,7 +15,7 @@ const ExamApp = () =>{
      <ExamInit/>
     </StoreProvider>
 );
-}
+};
 
 const App =() =>{
   return (
