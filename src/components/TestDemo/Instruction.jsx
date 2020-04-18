@@ -26,7 +26,7 @@ const Instruction = (props ) => {
           size="large"
           aria-label="Download"
           onClick={() => props.initExam()}
-          className="btn-action btn-white m-28">
+          className="btn-action btn-white my-28">
           Start
         </Fab>
       </div>

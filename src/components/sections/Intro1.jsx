@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import Fab from "@material-ui/core/Fab";
-import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class Intro1 extends Component {
   state = { };
@@ -37,11 +37,10 @@ class Intro1 extends Component {
                   variant="extended"
                   size="large"
                   aria-label="Download"
+                  onClick={() => this.props.history.push('/demo')}
                   className="btn-action btn-white m-8"
                 >
-                  <NavLink to="/demo" className="section-intro1__product__link">
-                    <span className="price__text">Demo coming soon...</span>
-                  </NavLink>
+                 Demo coming soon...
                 </Fab>
               </div>
             </Grid>
@@ -52,4 +51,4 @@ class Intro1 extends Component {
   }
 }
 
-export default Intro1;
+export default withRouter(Intro1);

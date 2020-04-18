@@ -37,7 +37,7 @@ const QuestionStep = props => {
           size="large"
           aria-label="Download"
           onClick={() => props.onNext()}
-          className="btn-action btn-white m-28">
+          className="btn-action btn-white my-28">
           Next
         </Fab>
       </div>
