@@ -28,7 +28,7 @@ class Intro1 extends Component {
                   <Icon color="secondary">check</Icon> Ensures the results are valid as the tests are administered in person.
                 </div>
                 <div className="section-intro1__list__item">
-                  <Icon color="secondary">check</Icon> Relieves students from having to complete duplicative tests for each compan.
+                  <Icon color="secondary">check</Icon> Relieves students from having to complete duplicative tests for each company.
                 </div>
               </div>
 
