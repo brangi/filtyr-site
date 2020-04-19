@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { /*useEffect*/ }  from 'react';
 import {useQuery, useLazyQuery, useMutation} from '@apollo/react-hooks';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 import Result from './Result';
@@ -16,27 +16,26 @@ const Exam = () => {
   const state = useStoreState(state => state);
   const setAnswer = useStoreActions(actions => actions.setAnswer);
   const setResults = useStoreActions(actions => actions.setResults);
-  const init = useStoreActions(actions => actions.init);
 
   //For exam
   const setInitial = useStoreActions(actions => actions.setInitial);
-  const setCurrentQuestion = useStoreActions(actions => actions.setCurrentQuestion);
+  const setNextQuestion = useStoreActions(actions => actions.setNextQuestion);
 
   //Initial query
-  const {data, error, loading:loadingStart} = useQuery(QUERY_INIT,{variables: {id}});
-  console.log(error);
+  const {data, loading:loadingStart} = useQuery(QUERY_INIT,{variables: {id}});
   //Get question query
-  const [getQuestion, { data: dataQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM);
+  let [getQuestion, { called, data: dataQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM ,{
+    fetchPolicy: 'network-only', //TODO track this bug very important!!
+  });
   const [startExamMutation] = useMutation(QUERY_START_EXAM);
-
-  useEffect(() => { // Deprecate eventually
-    init();
-  }, [init]);
 
   //Update state with startData
   if(!loadingStart) setInitial(data);
   //Update state with current question
-  if(dataQuestion) setCurrentQuestion(dataQuestion);
+  if(called && dataQuestion) {
+    //console.log({dataQuestion})
+    setNextQuestion(dataQuestion);
+  }
 
   //console.log(state);
   const setNext = () => {
