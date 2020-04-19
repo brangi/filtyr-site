@@ -6,10 +6,12 @@ import Instruction from './Instruction';
 import TopBar from '../sections/TopBar1';
 import QuestionStep from './QuestionStep';
 import {cache} from './utils/cache'
+import { useParams } from "react-router-dom";
 
-import {QUERY_START, QUERY_QUESTION_EXAM, START_EXAM } from './api/queries'
+import {QUERY_INIT, QUERY_QUESTION_EXAM, QUERY_START_EXAM } from './api/queries'
 const Exam = () => {
-
+  //ID exam parameter
+  const { id } = useParams();
   //State and store
   const state = useStoreState(state => state);
   const setAnswer = useStoreActions(actions => actions.setAnswer);
@@ -21,15 +23,14 @@ const Exam = () => {
   const setCurrentQuestion = useStoreActions(actions => actions.setCurrentQuestion);
 
   //Initial query
-  const {data, loading:loadingStart} = useQuery(QUERY_START);
+  const {data, error, loading:loadingStart} = useQuery(QUERY_INIT,{variables: {id}});
+  console.log(error);
   //Get question query
   const [getQuestion, { data: dataQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM);
-  const [startExamMutation] = useMutation(START_EXAM);
-  //Page questions
-  //console.log(dataQuestion);
+  const [startExamMutation] = useMutation(QUERY_START_EXAM);
+
   useEffect(() => { // Deprecate eventually
     init();
-    //console.log(cacheCheckExam());
   }, [init]);
 
   //Update state with startData
