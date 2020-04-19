@@ -37,7 +37,7 @@ class Intro1 extends Component {
                   variant="extended"
                   size="large"
                   aria-label="Download"
-                  onClick={() => process.env.NODE_ENV ==='development'? this.props.history.push('/demo') : null}
+                  onClick={() => process.env.NODE_ENV ==='development'? this.props.history.push('/demo/5e6aec2475087151616af99f') : null}
                   className="btn-action btn-white m-8"
                 >
                  Demo coming soon...

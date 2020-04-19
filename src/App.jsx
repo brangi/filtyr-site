@@ -14,16 +14,18 @@ const ExamApp = () =>{
     <StoreProvider store={store}>
      <Exam/>
     </StoreProvider>
-);
+  );
 };
 
 const App = () =>{
   return (
       <Router>
+        <div>
         <Switch>
-          <Route exact path="/" component={Home}  />
-          <Route exact path="/demo" component={ExamApp}  />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/demo/:id" component={ExamApp}  />
         </Switch>
+        </div>
       </Router>
   );
 };
