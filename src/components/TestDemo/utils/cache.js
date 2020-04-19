@@ -1,31 +1,19 @@
-
-export const cacheCheckExam = (id) =>{
-   const cache = JSON.parse(localStorage.getItem('filtyr-start'));
-   if(cache) {
-      return cache['5e6aec2475087151616af99f']
+export const cache = (examId, examResultId, cmd) =>{
+   switch(cmd){
+      case 'start-exam':
+         const cacheNew = [];
+         cacheNew.push({examId: examId, examResultId: examResultId});
+         localStorage.setItem('filtyr-store', JSON.stringify(cacheNew));
+         break;
+      case 'check-exam':
+         const cache = JSON.parse(localStorage.getItem('filtyr-store'));
+         return cache && !!cache.find(i => i.examId === examId);
+      case 'clear-exam':
+         const cacheClear = JSON.parse(localStorage.getItem('filtyr-store'));
+         cacheClear && localStorage.setItem('filtyr-store',
+           JSON.stringify(cacheNew.filter(i=> i.examId !== examId)));
+         break;
+      default:
+         return null
    }
-   return false
-};
-
-export const cacheStartExam = (id) =>{
-   localStorage.setItem('start-exam', true);
-   const cache = JSON.parse(localStorage.getItem('filtyr-start'));
-   if(!cache){
-      const cacheNew = {};
-      console.log({cacheNew});
-      cacheNew['5e6aec2475087151616af99f'] = true;
-      localStorage.setItem('filtyr-start', JSON.stringify(cacheNew));
-      return
-   }
-   cache['5e6aec2475087151616af99f'] = true;
-   localStorage.setItem('filtyr-start', JSON.stringify(cache))
-};
-
-export const rmCacheExam = (id) =>{
-   localStorage.removeItem('start-exam');
-   const cache = JSON.parse(localStorage.getItem('filtyr-start'));
-   if(cache) {
-      delete cache['5e6aec2475087151616af99f'];
-      localStorage.setItem('filtyr-start', JSON.stringify(cache))
-   };
 };

@@ -1,17 +1,15 @@
 import React, { useEffect }  from 'react';
-import {useQuery, useLazyQuery} from '@apollo/react-hooks';
+import {useQuery, useLazyQuery, useMutation} from '@apollo/react-hooks';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 import Result from './Result';
 import Instruction from './Instruction';
 import TopBar from '../sections/TopBar1';
 import QuestionStep from './QuestionStep';
-import { cacheCheckExam, cacheStartExam,rmCacheExam} from './utils/cache'
+import {cache} from './utils/cache'
 
-import {QUERY_START, QUERY_QUESTION_EXAM} from './api/queries'
+import {QUERY_START, QUERY_QUESTION_EXAM, START_EXAM } from './api/queries'
 const Exam = () => {
 
-  //Force update helper
-  //const forceUpdate = useForceUpdate();
   //State and store
   const state = useStoreState(state => state);
   const setAnswer = useStoreActions(actions => actions.setAnswer);
@@ -26,11 +24,9 @@ const Exam = () => {
   const {data, loading:loadingStart} = useQuery(QUERY_START);
   //Get question query
   const [getQuestion, { data: dataQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM);
-
+  const [startExamMutation] = useMutation(START_EXAM);
   //Page questions
   //console.log(dataQuestion);
-  //console.log(state);
-
   useEffect(() => { // Deprecate eventually
     init();
     //console.log(cacheCheckExam());
@@ -50,8 +46,10 @@ const Exam = () => {
     }
   };
 
-  const startExam = async () => {
-    cacheStartExam();
+  const startExam = async() => {
+    const { data: {startExamMutation: result} }  = await startExamMutation({ variables: { taker: "localhost" } });
+    //TODO use exmID from states instead
+    cache(result.exam, result.id, 'start-exam');
     //const dat = await fetch('http://api.ipify.org/?format=json');
     //const participantIpAddress = await dat.json();
     getQuestion({ variables: { number: 1, total: state.questionTotal } });
@@ -73,7 +71,6 @@ const Exam = () => {
   };
 
   const renderResult =()=> {
-    rmCacheExam();
     return <Result quizResult={state.result} />;
   };
 
@@ -88,7 +85,7 @@ const Exam = () => {
       </div>
       {(function() {
         if(data){
-          if(!cacheCheckExam()){
+          if(!cache(data.exam.id, undefined, 'check-exam')){
             return renderInstruction()
           }
           if (!state.result) {

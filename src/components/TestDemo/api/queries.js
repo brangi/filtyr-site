@@ -28,3 +28,15 @@ export const QUERY_QUESTION_EXAM = gql`
       next
     }
   }`;
+
+
+export const START_EXAM = gql`
+  mutation StartExam($taker: String!) {
+    startExamMutation(demoTaker:$taker, exam:"5e6aec2475087151616af99f"){
+     id,
+     type,
+     demoTaker,
+     exam
+    }
+  }
+`;
