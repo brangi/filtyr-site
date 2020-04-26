@@ -110,7 +110,7 @@ body {
 
 .radioCustomButton:checked ~ .radioCustomLabel:before {
   content: '';
-  background: #8bc53f url(../../components/TestDemo/svg/icon-check.svg) no-repeat;
+  background: #8bc53f url(../../components/demo/svg/icon-check.svg) no-repeat;
   background-size: 27px;
   border-color: #8bc53f;
 }
@@ -151,6 +151,11 @@ body {
   width: 100px;
   height: 100px;
   margin: 0 auto;
+}
+
+button:hover {
+  box-shadow: 0 0 0 5px white;
+  background-color: dodgerblue !important;
 }
 
 .scroll-description

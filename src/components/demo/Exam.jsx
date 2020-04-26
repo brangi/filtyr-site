@@ -23,21 +23,21 @@ const Exam = () => {
 
   //Initial query
   const {data, loading:loadingStart} = useQuery(QUERY_INIT,{variables: {id}});
+
   //Get question query
-  let [getQuestion, { called, data: dataQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM ,{
-    fetchPolicy: 'network-only', //TODO track this bug very important!!
+  let [getQuestion, { data: dataQuestion }] = useLazyQuery(QUERY_QUESTION_EXAM ,{
+    onCompleted: data => {
+      if(data) {
+        //Update state with current question
+        setNextQuestion(dataQuestion);
+      }
+    }
   });
   const [startExamMutation] = useMutation(QUERY_START_EXAM);
 
   //Update state with startData
   if(!loadingStart) setInitial(data);
-  //Update state with current question
-  if(called && dataQuestion) {
-    //console.log({dataQuestion})
-    setNextQuestion(dataQuestion);
-  }
-
-  //console.log(state);
+  console.log(state);
   const setNext = () => {
     if (state.page < state.questionTotal) {
       getQuestion({ variables: { number: state.next, total: state.questionTotal } });
@@ -92,6 +92,7 @@ const Exam = () => {
             return renderExam()
           }
           if (state.result) {
+            cache(data.exam.id, undefined, 'clear-exam');
             return renderResult()
           }
         }

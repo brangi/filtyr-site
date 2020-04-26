@@ -35,7 +35,6 @@ const QuestionStep = props => {
         <Fab
           variant="extended"
           size="large"
-          aria-label="Download"
           onClick={() => props.onNext()}
           className="btn-action btn-white my-28">
           Next

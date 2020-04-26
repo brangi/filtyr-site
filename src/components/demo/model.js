@@ -24,7 +24,7 @@ const model = {
     state.questionTotal  = data.exam.questions.length
   }),
   setNextQuestion: action((state, data) => {
-    // state.answerSelected = ''; // TODO uncomment after bugfixed
+    state.answerSelected = '';
     state.currentQuestionId  = data.getQuestion.id;
     state.currentQuestion  = data.getQuestion.name;
     state.currentAnswers  = data.getQuestion.answers;

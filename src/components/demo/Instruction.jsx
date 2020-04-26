@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Fab from '@material-ui/core/Fab';
 import { CSSTransitionGroup } from 'react-transition-group';
+import { Flags } from 'react-feature-flags';
 
 const Instruction = (props ) => {
   return (
@@ -30,6 +31,11 @@ const Instruction = (props ) => {
           Start
         </Fab>
       </div>
+      <Flags
+        exactFlags
+        authorizedFlags={['demo']}
+        renderOn={() => <h1>visible when flagA AND flagB are active</h1>}
+      />
     </section>
   );
 };

@@ -10,8 +10,13 @@ export const cache = (examId, examResultId, cmd) =>{
          return cache && !!cache.find(i => i.examId === examId);
       case 'clear-exam':
          const cacheClear = JSON.parse(localStorage.getItem('filtyr-store'));
-         cacheClear && localStorage.setItem('filtyr-store',
-           JSON.stringify(cacheNew.filter(i=> i.examId !== examId)));
+         const cacheFiltered = cacheClear.filter(i=> i.examId !== examId);
+         if (cacheFiltered && cacheFiltered.length > 0){
+            localStorage.setItem('filtyr-store',
+              JSON.stringify(cacheFiltered));
+         } else {
+            localStorage.removeItem('filtyr-store')
+         }
          break;
       default:
          return null

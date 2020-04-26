@@ -1,12 +1,12 @@
 import React from "react";
 import { StoreProvider, createStore } from "easy-peasy";
-import model from './components/TestDemo/model';
+import model from './components/demo/model';
 import "./styles/sass/app.scss";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 // import { MuiThemeProvider } from "@material-ui/core/styles";
 import Home from "./components/Home";
 // import Theme from "./Theme";
-import Exam from './components/TestDemo/Exam'
+import Exam from './components/demo/Exam'
 const store = createStore(model);
 
 const ExamApp = () =>{
