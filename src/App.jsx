@@ -20,12 +20,10 @@ const ExamApp = () =>{
 const App = () =>{
   return (
       <Router>
-        <div>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/demo/:id" component={ExamApp}  />
         </Switch>
-        </div>
       </Router>
   );
 };
