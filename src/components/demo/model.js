@@ -22,7 +22,7 @@ const model = {
     state.result = result;
   }),
   setExamResult: action((state, result) => {
-    state.examResultId = result.id;
+    state.examResultId = result.id || result.getExamResult.id;
   }),
   setInitial: action((state, data) => {
     state.exam = data.exam.id;

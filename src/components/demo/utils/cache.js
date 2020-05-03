@@ -8,6 +8,9 @@ export const cache = (examId, examResultId, cmd) =>{
       case 'check-exam':
          const cache = JSON.parse(localStorage.getItem('filtyr-store'));
          return cache && !!cache.find(i => i.examId === examId);
+      case 'get-exam':
+         const cacheExam = JSON.parse(localStorage.getItem('filtyr-store'));
+         return cacheExam || null;
       case 'clear-exam':
          const cacheClear = JSON.parse(localStorage.getItem('filtyr-store'));
          const cacheFiltered = cacheClear.filter(i=> i.examId !== examId);

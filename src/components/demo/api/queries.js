@@ -28,6 +28,18 @@ export const QUERY_QUESTION_EXAM = gql`
     }
   }`;
 
+
+export const QUERY_RESUME_EXAM = gql`
+  query ResumeExam($examResultId: ID!){
+    getExamResult(examResultId: $examResultId ){
+       id,
+       demoTaker,
+       exam
+       lastAnsweredNoQuestion
+       totalQuestions
+     }
+  }`;
+
 export const MUTATION_START_EXAM = gql`
   mutation StartExam($taker: String!, $id: ID!) {
     startExamMutation(demoTaker:$taker, exam:$id ){

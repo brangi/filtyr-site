@@ -1,4 +1,4 @@
-import React, { /*useEffect*/ }  from 'react';
+import React, { useEffect }  from 'react';
 import {useQuery, useLazyQuery, useMutation} from '@apollo/react-hooks';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 import Result from './Result';
@@ -11,12 +11,14 @@ import {
   QUERY_INIT,
   QUERY_QUESTION_EXAM,
   MUTATION_START_EXAM,
-  MUTATION_ANSWER_QUESTION
+  MUTATION_ANSWER_QUESTION,
+  QUERY_RESUME_EXAM
 } from './api/queries'
 
 const Exam = () => {
   //ID exam parameter
   const { id } = useParams();
+
   //State and store
   const state = useStoreState(state => state);
   const setAnswer = useStoreActions(actions => actions.setAnswer);
@@ -25,7 +27,7 @@ const Exam = () => {
   //For exam
   const setInitial = useStoreActions(actions => actions.setInitial);
   const setNextQuestion = useStoreActions(actions => actions.setNextQuestion);
-  const setExamResult = useStoreActions(actions => actions.setExamResult)
+  const setExamResult = useStoreActions(actions => actions.setExamResult);
 
   //Initial query
   const {data, loading:loadingStart} = useQuery(QUERY_INIT,{variables: {id}});
@@ -39,11 +41,36 @@ const Exam = () => {
       }
     }
   });
+
+  //Get resume query
+  // eslint-disable-next-line
+  let [getExamResult, { data: dataResume }] = useLazyQuery(QUERY_RESUME_EXAM ,{
+    onCompleted: data => {
+      if(data) {
+        setExamResult(data);
+        getQuestion({ variables:
+            { number: data.getExamResult.lastAnsweredNoQuestion + 1,
+              exam: state.exam,
+              total: data.getExamResult.totalQuestions }
+        });
+      }
+    }
+  });
+
   //start exam mutation
   const [startExamMutation] = useMutation(MUTATION_START_EXAM);
   //answer question mutation
   const [answerQuestion] = useMutation(MUTATION_ANSWER_QUESTION);
 
+
+  //Look for cache on load/reload and resume exam progress
+  useEffect( () => {
+    const cacheData = cache(id, null , 'get-exam');
+    if(!cacheData) return;
+    getExamResult({variables : {examResultId: cacheData[0].examResultId } })
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log(state);
   //Update state with startData
   if(!loadingStart) setInitial(data);
   const setNext = async () => {
