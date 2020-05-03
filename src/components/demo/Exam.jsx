@@ -7,8 +7,13 @@ import TopBar from '../sections/TopBar1';
 import QuestionStep from './QuestionStep';
 import {cache} from './utils/cache'
 import { useParams } from "react-router-dom";
+import {
+  QUERY_INIT,
+  QUERY_QUESTION_EXAM,
+  MUTATION_START_EXAM,
+  MUTATION_ANSWER_QUESTION
+} from './api/queries'
 
-import {QUERY_INIT, QUERY_QUESTION_EXAM, QUERY_START_EXAM } from './api/queries'
 const Exam = () => {
   //ID exam parameter
   const { id } = useParams();
@@ -20,6 +25,7 @@ const Exam = () => {
   //For exam
   const setInitial = useStoreActions(actions => actions.setInitial);
   const setNextQuestion = useStoreActions(actions => actions.setNextQuestion);
+  const setExamResult = useStoreActions(actions => actions.setExamResult)
 
   //Initial query
   const {data, loading:loadingStart} = useQuery(QUERY_INIT,{variables: {id}});
@@ -33,26 +39,29 @@ const Exam = () => {
       }
     }
   });
-  const [startExamMutation] = useMutation(QUERY_START_EXAM);
+  //start exam mutation
+  const [startExamMutation] = useMutation(MUTATION_START_EXAM);
+  //answer question mutation
+  const [answerQuestion] = useMutation(MUTATION_ANSWER_QUESTION);
 
   //Update state with startData
   if(!loadingStart) setInitial(data);
-  console.log(state);
-  const setNext = () => {
+  const setNext = async () => {
+    await answerQuestion({variables :{examResultId: state.examResultId, questionId: state.currentQuestionId, answerId: state.answerSelected }});
     if (state.page < state.questionTotal) {
-      getQuestion({ variables: { number: state.next, total: state.questionTotal } });
+      getQuestion({ variables: { number: state.next, exam: state.exam, total: state.questionTotal } });
     } else {
       setTimeout(() => setResults("Result coming..."), 300);
     }
   };
 
   const startExam = async() => {
-    const { data: {startExamMutation: result} }  = await startExamMutation({ variables: { taker: "localhost" } });
-    //TODO use exmID from states instead
+    const { data: {startExamMutation: result} }  = await startExamMutation({ variables: { taker: "localhost", id: state.exam } });
+    setExamResult(result);
     cache(result.exam, result.id, 'start-exam');
     //const dat = await fetch('http://api.ipify.org/?format=json');
     //const participantIpAddress = await dat.json();
-    getQuestion({ variables: { number: 1, total: state.questionTotal } });
+    getQuestion({ variables: { number: 1, exam: state.exam, total: state.questionTotal } });
   };
 
   const renderExam =()=> {

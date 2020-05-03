@@ -13,8 +13,8 @@ export const QUERY_INIT = gql`
   }`;
 
 export const QUERY_QUESTION_EXAM = gql`
-  query Question($number: Int!, $total: Int!){
-    getQuestion(questionNum:$number, examId:"5e6aec2475087151616af99f", total: $total){
+  query Question($number: Int!, $total: Int!, $exam: ID!){
+    getQuestion(questionNum:$number, examId: $exam, total: $total){
       name
       id
       answers{
@@ -24,17 +24,29 @@ export const QUERY_QUESTION_EXAM = gql`
       page
       prev
       next
+      exam
     }
   }`;
 
-
-export const QUERY_START_EXAM = gql`
-  mutation StartExam($taker: String!) {
-    startExamMutation(demoTaker:$taker, exam:"5e6aec2475087151616af99f"){
+export const MUTATION_START_EXAM = gql`
+  mutation StartExam($taker: String!, $id: ID!) {
+    startExamMutation(demoTaker:$taker, exam:$id ){
      id,
      type,
      demoTaker,
      exam
+    }
+  }
+`;
+
+export const MUTATION_ANSWER_QUESTION = gql`
+  mutation AnswerQuestion($examResultId: ID!, $questionId: ID!, $answerId: ID!) {
+    answerQuestion(
+       examResultId: $examResultId , question :$questionId, answer: $answerId){
+        id,
+        type,
+        demoTaker,
+        exam
     }
   }
 `;

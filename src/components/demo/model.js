@@ -2,6 +2,8 @@ import { action } from 'easy-peasy';
 const model = {
 
   //For Exam
+  exam: '',
+  examResultId: '',
   description: '',
   questionTotal: 0,
   currentQuestion: '',
@@ -19,11 +21,16 @@ const model = {
   setResults: action((state, result) => {
     state.result = result;
   }),
+  setExamResult: action((state, result) => {
+    state.examResultId = result.id;
+  }),
   setInitial: action((state, data) => {
+    state.exam = data.exam.id;
     state.description  = data.exam.description;
     state.questionTotal  = data.exam.questions.length
   }),
   setNextQuestion: action((state, data) => {
+    state.exam = data.getQuestion.exam;
     state.answerSelected = '';
     state.currentQuestionId  = data.getQuestion.id;
     state.currentQuestion  = data.getQuestion.name;
