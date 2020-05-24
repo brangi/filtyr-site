@@ -75,11 +75,6 @@ class TopBar extends Component {
                   </ScrollTo>
                 </li>
                 <li>
-                  <ScrollTo to="portfolio1" onScroll={this.close}>
-                    Cases
-                  </ScrollTo>
-                </li>
-                <li>
                   <ScrollTo to="service1" onScroll={this.close}>
                     Features
                   </ScrollTo>
@@ -88,11 +83,6 @@ class TopBar extends Component {
                 <li>
                   <ScrollTo to="pricing1" onScroll={this.close}>
                     Pricing
-                  </ScrollTo>
-                </li>
-                <li>
-                  <ScrollTo to="contact1" onScroll={this.close}>
-                    Contact
                   </ScrollTo>
                 </li>
               </ul>
