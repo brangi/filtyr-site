@@ -3,6 +3,8 @@ import { debounce, classList } from "../../Utils";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import ScrollTo from "../common/ScrollTo";
+import Fab from '@material-ui/core/Fab';
+import { withRouter } from 'react-router-dom';
 
 class TopBar extends Component {
   state = {
@@ -66,9 +68,6 @@ class TopBar extends Component {
                 <img src="./assets/images/logo-full.png" alt="" />
               </div>
               <ul className="navigation">
-                {/*<li>
-              <NavLink to="/">Demos</NavLink>
-            </li>*/}
                 <li>
                   <ScrollTo to="intro1" onScroll={this.close}>
                     Home
@@ -87,15 +86,30 @@ class TopBar extends Component {
                 </li>
               </ul>
               <div className="m-auto" />
-              {/*
-           <ul className="navigation">
-            <li>
-              <a href="/dashboard">
-                <Icon className="mr-16">person</Icon> My Account
-              </a>
-            </li>
-          </ul>
-          */}
+              <Fab
+                variant="extended"
+                size="medium"
+                color="secondary"
+                aria-label="Buy"
+                style={{margin: '10px'}}
+                onClick={() => {
+                  this.props.history.push('/login')
+                }}
+              >
+                LOG IN
+              </Fab>
+              <Fab
+                variant="extended"
+                size="medium"
+                color="secondary"
+                aria-label="Buy"
+                style={{margin: '10px'}}
+                onClick={() => {
+                  this.props.history.push('/signup')
+                }}
+              >
+                SIGN UP
+              </Fab>
               <IconButton
                 className="header__toggle"
                 onClick={() => {
@@ -112,4 +126,4 @@ class TopBar extends Component {
   }
 }
 
-export default TopBar;
+export default withRouter(TopBar);
