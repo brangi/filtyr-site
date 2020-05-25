@@ -1,14 +1,30 @@
 import React, {  /*useEffect*/ }  from 'react';
 import { GoogleLogin } from 'react-google-login';
 import googleConfig from '../config/google/dev'
-const success = response => {
-  console.log(response) // eslint-disable-line
-};
+import {API_URL} from '../config/constants'
 
-const error = response => {
-  console.error(response) // eslint-disable-line
-};
 const Register = () => {
+  const success = async (gmailResponse) => {
+    //console.log(gmailResponse.profileObj);
+    try{
+      if(gmailResponse.profileObj) {
+        const apiResponse = await fetch (`${API_URL}/user/signup`, {
+          headers: { 'Content-type': 'application/json' },
+          method: 'POST',
+          body: JSON.stringify({
+            email: gmailResponse.profileObj.email,
+          })
+        });
+        const result = await apiResponse.json();
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  const error = response => {
+    console.error(response) // eslint-disable-line
+  };
   return <section>
     <div className="split left">
       <div className="centered">
