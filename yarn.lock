@@ -10150,6 +10150,11 @@ react-event-listener@^0.6.2:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
+react-facebook-login@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-4.1.1.tgz#005121236a6ac0dee02099976fb1a3265f9d633e"
+  integrity sha512-COnHEHlYGTKipz4963safFAK9PaNTcCiXfPXMS/yxo8El+/AJL5ye8kMJf23lKSSGGPgqFQuInskIHVqGqTvSw==
+
 react-feature-flags@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-feature-flags/-/react-feature-flags-1.0.0.tgz#9ebef632876d1ef8fcc29f429a4d24f9cd7c8147"

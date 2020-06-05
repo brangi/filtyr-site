@@ -93,6 +93,9 @@ class TopBar extends Component {
                 aria-label="Buy"
                 style={{margin: '10px'}}
                 onClick={() => {
+                  if(process.env.NODE_ENV !== 'development') return;
+                  (localStorage.getItem("auth-access"))?
+                    this.props.history.push('/dash'):
                   this.props.history.push('/login')
                 }}
               >
@@ -105,7 +108,10 @@ class TopBar extends Component {
                 aria-label="Buy"
                 style={{margin: '10px'}}
                 onClick={() => {
-                  this.props.history.push('/signup')
+                  if(process.env.NODE_ENV !== 'development') return;
+                  (localStorage.getItem("auth-access"))?
+                    this.props.history.push('/dash'):
+                    this.props.history.push('/signup')
                 }}
               >
                 SIGN UP
